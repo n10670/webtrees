@@ -27,7 +27,15 @@
 
 define('WT_SCRIPT_NAME', 'individual.php');
 require './includes/session.php';
-$controller=new WT_Controller_Individual();
+
+$record = WT_Individual::getInstance(WT_Filter::get('pid', WT_REGEX_XREF));
+
+if (!$record && $USE_RIN) {
+	$record = WT_Individual::getInstance(find_rin_id(WT_Filter::get('pid', WT_REGEX_XREF)));
+}
+
+$controller = new WT_Controller_Individual($record);
+
 $controller
 	->addExternalJavascript(WT_JQUERY_COOKIE_URL); // We use this to record the sidebar state
 

@@ -467,7 +467,7 @@ class WT_MenuBar {
 				if (WT_LOCALE == $lang) {$submenu->addClass('','','lang-active');}
 				$menu->addSubMenu($submenu);
 			}
-			if (count($menu->submenus)>1) {
+			if ($menu->subCount()) {
 				return $menu;
 			} else {
 				return null;

@@ -26,20 +26,14 @@ if (!defined('WT_WEBTREES')) {
 	exit;
 }
 
-require_once WT_ROOT.'includes/functions/functions_print_facts.php';
-require_once WT_ROOT.'includes/functions/functions_import.php';
-
 class WT_Controller_Family extends WT_Controller_GedcomRecord {
-	public function __construct() {
+	public function __construct(WT_Family $record = null) {
 		global $Dbwidth, $bwidth, $pbwidth, $pbheight, $bheight;
 		$bwidth   = $Dbwidth;
 		$pbwidth  = $bwidth + 12;
 		$pbheight = $bheight + 14;
 
-		$xref         = WT_Filter::get('famid', WT_REGEX_XREF);
-		$this->record = WT_Family::getInstance($xref);
-
-		parent::__construct();
+		parent::__construct($record);
 	}
 
 	// Get significant information from this page, to allow other pages such as
@@ -83,7 +77,6 @@ class WT_Controller_Family extends WT_Controller_GedcomRecord {
 
 		// edit menu
 		$menu = new WT_Menu(WT_I18N::translate('Edit'), '#', 'menu-fam');
-		$menu->addLabel($menu->label, 'down');
 
 		if (WT_USER_CAN_EDIT) {
 			// edit_fam / members

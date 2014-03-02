@@ -26,27 +26,14 @@ if (!defined('WT_WEBTREES')) {
 	exit;
 }
 
-require_once WT_ROOT.'includes/functions/functions_print_facts.php';
-require_once WT_ROOT.'includes/functions/functions_import.php';
-
 class WT_Controller_Individual extends WT_Controller_GedcomRecord {
 	public $name_count = 0;
 	public $total_names = 0;
 
 	public $tabs;
 
-	function __construct() {
-		global $USE_RIN;
-
-		$xref         = WT_Filter::get('pid', WT_REGEX_XREF);
-		$this->record = WT_Individual::getInstance($xref);
-
-		if (!$this->record && $USE_RIN) {
-			$rin          = find_rin_id($xref);
-			$this->record = WT_Individual::getInstance($rin);
-		}
-
-		parent::__construct();
+	function __construct(WT_Individual $record = null) {
+		parent::__construct($record);
 
 		$this->tabs = WT_Module::getActiveTabs();
 
@@ -264,7 +251,6 @@ class WT_Controller_Individual extends WT_Controller_GedcomRecord {
 		}
 		// edit menu
 		$menu = new WT_Menu(WT_I18N::translate('Edit'), '#', 'menu-indi');
-		$menu->addLabel($menu->label, 'down');
 
 		// What behaviour shall we give the main menu?  If we leave it blank, the framework
 		// will copy the first submenu - which may be edit-raw or delete.

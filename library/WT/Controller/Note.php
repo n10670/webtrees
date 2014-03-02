@@ -26,17 +26,7 @@ if (!defined('WT_WEBTREES')) {
 	exit;
 }
 
-require_once WT_ROOT.'includes/functions/functions_print_facts.php';
-require_once WT_ROOT.'includes/functions/functions_import.php';
-
 class WT_Controller_Note extends WT_Controller_GedcomRecord {
-	public function __construct() {
-		$xref         = WT_Filter::get('nid', WT_REGEX_XREF);
-		$this->record = WT_Note::getInstance($xref);
-
-		parent::__construct();
-	}
-
 	/**
 	* get edit menu
 	*/

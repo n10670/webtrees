@@ -26,7 +26,7 @@ define('WT_SCRIPT_NAME', 'repo.php');
 require './includes/session.php';
 require_once WT_ROOT.'includes/functions/functions_print_lists.php';
 
-$controller=new WT_Controller_Repository();
+$controller = new WT_Controller_Repository(WT_Repository::getInstance(WT_Filter::get('rid', WT_REGEX_XREF)));
 
 if ($controller->record && $controller->record->canShow()) {
 	$controller->pageHeader();

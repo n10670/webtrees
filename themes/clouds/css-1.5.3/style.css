@@ -2371,7 +2371,7 @@ margin:auto;
 width:99%;
 }
 
-#source-details h2,#sourcelist-page h2,#note-details h2,#notelist-page h2,#repo-details h2,#repolist-page h2,#media-details h2,#medialist-page h2,#statistics-page h2 {
+#source-details h2,#sourcelist-page h2,#note-details h2,#notelist-page h2,#repo-details h2,#repolist-page h2,#media-details h2,#medialist-page h2,#statistics-page h2, #record-details h2 {
 margin-bottom:20px;
 text-align:center;
 }
@@ -2380,7 +2380,7 @@ text-align:center;
 overflow-x:auto;
 }
 
-#source-tabs,#note-tabs,#repo-tabs,#media-tabs {
+#source-tabs,#note-tabs,#repo-tabs,#media-tabs, #record-tabs {
 margin:auto;
 visibility:hidden;
 width:80%;

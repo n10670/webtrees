@@ -27,28 +27,26 @@ if (!defined('WT_WEBTREES')) {
 }
 
 class WT_Menu {
-	var $label = ' ';
-	var $labelpos = 'right';
-	var $link = '#';
-	var $onclick = null;
-	var $flyout = 'down';
-	var $class = '';
-	var $id=null;
-	var $submenuclass = '';
-	var $iconclass = '';
-	var $target = null;
-	var $parentmenu = null;
-	var $submenus;
+	private $label = ' ';
+	private $labelpos = 'right';
+	private $link = '#';
+	private $onclick = null;
+	private $flyout = 'down';
+	private $class = '';
+	private $id = null;
+	private $submenuclass = '';
+	private $iconclass = '';
+	private $parentmenu = null;
+	private $submenus = null;
 
 	/**
 	* Constructor for the menu class
-	* @param string $label the label for the menu item (usually a wt_lang variable)
+	* @param string $label the label for the menu item
 	* @param string $link The link that the user should be taken to when clicking on the menuitem
 	* @param string $pos The position of the label relative to the icon (right, left, top, bottom)
 	* @param string $flyout The direction where any submenus should appear relative to the menu item (right, down)
 	*/
-	function __construct($label=' ', $link='#', $id=null, $labelpos='right', $flyout='down')
-	{
+	function __construct($label=' ', $link='#', $id=null, $labelpos='right', $flyout='down') {
 		$this->label   =$label;
 		$this->labelpos=$labelpos;
 		$this->link    =$link;
@@ -57,41 +55,30 @@ class WT_Menu {
 		$this->submenus=array();
 	}
 
-	function addLabel($label=' ', $pos='right')
-	{
+	function addLabel($label=' ', $pos='right') {
 		if ($label) $this->label = $label;
 		$this->labelpos = $pos;
 	}
 
-	function addLink($link='#')
-	{
+	function addLink($link='#') {
 		$this->link = $link;
 	}
 
-	function addOnclick($onclick)
-	{
+	function addOnclick($onclick) {
 		$this->onclick = $onclick;
 	}
 
-	function addFlyout($flyout='down')
-	{
+	function addFlyout($flyout='down') {
 		$this->flyout = $flyout;
 	}
 
-	function addClass($class, $submenuclass='', $iconclass='icon_general')
-	{
+	function addClass($class, $submenuclass='', $iconclass='icon_general') {
 		$this->class = $class;
 		$this->submenuclass = $submenuclass;
 		$this->iconclass = $iconclass;
 	}
 
-	function addTarget($target)
-	{
-		$this->target = $target;
-	}
-
-	function addSubMenu($obj)
-	{
+	function addSubMenu($obj) {
 		$this->submenus[] = $obj;
 	}
 
@@ -102,38 +89,35 @@ class WT_Menu {
 
 	// Get the menu as a simple list - for accessible interfaces, search engines and CSS menus
 	function getMenuAsList() {
-		$link = '';
+		$onclick = '';
 		if ($this->link) {
-			if ($this->target !== null) {
-				$link .= ' target="'.$this->target.'"';
-			}
 			if ($this->link=='#') {
 				if ($this->onclick !== null) {
-					$link .= ' onclick="'.$this->onclick.'"';
+					$onclick .= ' onclick="' . $this->onclick . '"';
 				}
-				$html='<a class="'.$this->iconclass.'" href="'.$this->link.'"'.$link.'>'.$this->label.'</a>';
+				$html = '<a class="' . $this->iconclass . '" href="' . $this->link . '"' . $onclick . '>' . $this->label . '</a>';
 			} else {
-				$html='<a class="'.$this->iconclass.'" href="'.$this->link.'"'.$link.'>'.$this->label.'</a>';
+				$html = '<a class="' . $this->iconclass . '" href="' . $this->link . '"' . $onclick . '>' . $this->label . '</a>';
 			}
 		} else {
-			$html=$this->label;
+			$html = $this->label;
 		}
 		if ($this->submenus) {
-			$html.='<ul>';
+			$html .= '<ul>';
 			foreach ($this->submenus as $submenu) {
 				if ($submenu) {
 					if ($submenu->submenus) {
-						$submenu->iconclass.=' icon_arrow';
+						$submenu->iconclass .= ' icon_arrow';
 					}
-					$html.=$submenu->getMenuAsList();
+					$html .= $submenu->getMenuAsList();
 				}
 			}
-			$html.='</ul>';
+			$html .= '</ul>';
 		}
 		if ($this->id) {
-			return '<li id="'.$this->id.'">'.$html.'</li>';
+			return '<li id="' . $this->id . '">' . $html . '</li>';
 		} else {
-			return '<li>'.$html.'</li>';
+			return '<li>' . $html . '</li>';
 		}
 	}
 
@@ -158,9 +142,6 @@ class WT_Menu {
 		}
 		if ($this->onclick !== null) {
 			$link .= "\" onclick=\"{$this->onclick}";
-		}
-		if ($this->target !== null) {
-			$link .= '" target="'.$this->target;
 		}
 		$link .= "\">";
 		$output .= $link;

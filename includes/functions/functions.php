@@ -26,6 +26,13 @@ if (!defined('WT_WEBTREES')) {
 	exit;
 }
 
+
+// PHP5.4 allows class member access on instantiation, e.g. (new X)->y()
+// Mimic this in PHP5.3, e.g. with(new X)->y()
+function with($x) {
+	return $x;
+}
+
 // Check with the webtrees.net server for the latest version of webtrees.
 // Fetching the remote file can be slow, so check infrequently, and cache the result.
 // Pass the current versions of webtrees, PHP and MySQL, as the response

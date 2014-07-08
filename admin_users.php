@@ -358,6 +358,12 @@ case 'createform':
 		}
 	');
 
+?>
+<h2>
+	<?php echo WT_I18N::translate('Add a new user'); ?>
+</h2>
+<?php
+
 	echo '
 	<form name="newform" method="post" action="admin_users.php?action=createuser" onsubmit="return checkform(this);" autocomplete="off">
 		', WT_Filter::getCsrf(), '
